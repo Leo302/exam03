@@ -42,7 +42,7 @@ void check_addr(char *xbee_reply, char *messenger);
 
 
 RPCFunction rpcAcc(&getAcc, "getAcc");
-RPCFunction rpcAddr(&getAddr, "getAddr");
+//RPCFunction rpcAddr(&getAddr, "getAddr");
 
 
 int main(){
@@ -172,7 +172,7 @@ void getAcc(Arguments *in, Reply *out) {
    acc16 = (res[2] << 6) | (res[3] >> 2);
    if (acc16 > UINT14_MAX/2)
       acc16 -= UINT14_MAX;
-   t[1] = ((float)acc16) / 4096.0f;
+   t[1] = ((float)acc16) / 4096.0f ;
 
    acc16 = (res[4] << 6) | (res[5] >> 2);
    if (acc16 > UINT14_MAX/2)
@@ -184,18 +184,18 @@ void getAcc(Arguments *in, Reply *out) {
          /*t[0], res[0], res[1],\
          t[1], res[2], res[3],\
          t[2], res[4], res[5]\*/
-         t[1], res[2], res[3]
+         t[1]*res[2], res[2], res[3]
    );
    wait(0.1);
 }
 }
 
-void getAddr(Arguments *in, Reply *out) {
+/*void getAddr(Arguments *in, Reply *out) {
    uint8_t who_am_i, data[2];
    FXOS8700CQ_readRegs(FXOS8700Q_WHOAMI, &who_am_i, 1);
    pc.printf("Here is %x", who_am_i);
 
-}
+}*/
 
 void FXOS8700CQ_readRegs(int addr, uint8_t * data, int len) {
    char t = addr;
